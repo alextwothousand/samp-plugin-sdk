@@ -41,7 +41,7 @@ else()
 	if (CYGWIN)
 		# Using cygwin compiler
 
-		#target_compile_options(sdk PRIVATE -Wno-ignored-attributes)
+		target_compile_options(sdk PRIVATE -Wno-ignored-attributes)
 	elseif(MINGW)
 		# Using mingw
 		# Some really stupid but necessary workaround
