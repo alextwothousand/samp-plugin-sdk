@@ -31,11 +31,15 @@
 	#define PLUGIN_EXPORT PLUGIN_EXTERN_C
   #endif
 #elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
-  #ifndef _MSC_VER
-	#pragma message "Warning: Not using a VC++ compiler."
+  #ifdef _MSC_VER
+    // Using msvc.
+    #define PLUGIN_CALL __stdcall
+    #define PLUGIN_EXPORT PLUGIN_EXTERN_C
+  #else
+    // Using gcc/clang/cygwin.
+    #define PLUGIN_CALL
+    #define PLUGIN_EXPORT PLUGIN_EXTERN_C __attribute__((visibility("default")))
   #endif
-  #define PLUGIN_CALL __stdcall
-  #define PLUGIN_EXPORT PLUGIN_EXTERN_C
 #else
   #error "You must define one of WIN32, LINUX or FREEBSD"
 #endif
