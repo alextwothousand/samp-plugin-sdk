@@ -6,7 +6,7 @@ include(CheckIncludeFile)
 set(CMAKE_CXX_STANDARD 11)
 set(SAMP_SDK_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_library(sdk STATIC ${SAMP_SDK_ROOT}/amxplugin.cpp ${SAMP_SDK_ROOT}/amxplugin2.cpp ${SAMP_SDK_ROOT}/amx/getch.c)
+add_library(sdk SHARED ${SAMP_SDK_ROOT}/amxplugin.cpp ${SAMP_SDK_ROOT}/amxplugin2.cpp ${SAMP_SDK_ROOT}/amx/getch.c)
 target_include_directories(sdk PUBLIC ${SAMP_SDK_ROOT} ${SAMP_SDK_ROOT}/amx)
 
 check_include_file(alloca.h HAVE_ALLOCA_H)
@@ -41,12 +41,13 @@ else()
 	if (CYGWIN)
 		# Using cygwin compiler
 
-		#target_compile_options()
+		#target_compile_options(sdk PRIVATE -Wno-ignored-attributes)
 	elseif(MINGW)
 		# Using mingw
 		# Some really stupid but necessary workaround
 
-		target_compile_options(sdk PRIVATE -include stddef.h)
+		target_compile_options(sdk PRIVATE -Wno-attributes -include stddef.h)
+		message(STATUS "Using mingw")
 	else()
 		# Some unsupported platform
 
