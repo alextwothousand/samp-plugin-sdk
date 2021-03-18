@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(SAMP_SDK_ROOT ${PROJECT_SOURCE_DIR})
 
 add_library(sdk STATIC ${SAMP_SDK_ROOT}/amxplugin.cpp ${SAMP_SDK_ROOT}/amxplugin2.cpp ${SAMP_SDK_ROOT}/amx/getch.c)
-target_include_directories(sdk PRIVATE ${SAMP_SDK_ROOT} ${SAMP_SDK_ROOT}/amx)
+target_include_directories(sdk PUBLIC ${SAMP_SDK_ROOT} ${SAMP_SDK_ROOT}/amx)
 
 check_include_file(alloca.h HAVE_ALLOCA_H)
 if(HAVE_ALLOCA_H)
