@@ -37,8 +37,8 @@
     #define PLUGIN_EXPORT PLUGIN_EXTERN_C
   #else
     // Using gcc/clang/cygwin.
-    #define PLUGIN_CALL
-    #define PLUGIN_EXPORT PLUGIN_EXTERN_C __attribute__((visibility("default")))
+    #define PLUGIN_CALL __stdcall
+    #define PLUGIN_EXPORT PLUGIN_EXTERN_C __attribute__((visibility("default"))) __declspec(dllexport)
   #endif
 #else
   #error "You must define one of WIN32, LINUX or FREEBSD"
