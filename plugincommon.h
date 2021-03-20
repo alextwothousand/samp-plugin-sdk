@@ -34,7 +34,7 @@
   #ifdef _MSC_VER
     // Using msvc.
     #define PLUGIN_CALL __stdcall
-    #define PLUGIN_EXPORT PLUGIN_EXTERN_C __declspec(dllexport)
+    #define PLUGIN_EXPORT PLUGIN_EXTERN_C
   #else
     // Using gcc/clang/cygwin.
     #define PLUGIN_CALL __stdcall
