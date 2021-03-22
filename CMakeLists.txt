@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.15)
-project(sdk CXX)
+project(sdk C)
 
 include(CheckIncludeFile)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_STANDARD 99)
 set(SAMP_SDK_ROOT ${PROJECT_SOURCE_DIR})
 
-add_library(sdk STATIC ${SAMP_SDK_ROOT}/amxplugin.cpp ${SAMP_SDK_ROOT}/amxplugin2.cpp ${SAMP_SDK_ROOT}/amx/getch.c)
+add_library(sdk STATIC ${SAMP_SDK_ROOT}/amxplugin.c ${SAMP_SDK_ROOT}/amxplugin2.c ${SAMP_SDK_ROOT}/amx/getch.c)
 target_include_directories(sdk PUBLIC ${SAMP_SDK_ROOT} ${SAMP_SDK_ROOT}/amx)
 
 check_include_file(alloca.h HAVE_ALLOCA_H)
@@ -34,12 +34,12 @@ if (WIN32 AND MSVC)
 	message(STATUS "On windows with msvc")
 elseif(UNIX)
 	target_compile_definitions(sdk PUBLIC -DLINUX)
-	target_compile_options(sdk PRIVATE -m32 -std=c++11)
+	target_compile_options(sdk PRIVATE -m32 -std=c99)
 	
 	message(STATUS "On unix")
 else()
 	target_compile_definitions(sdk PRIVATE -DWIN32)
-	target_compile_options(sdk PRIVATE -m32 -std=c++11)
+	target_compile_options(sdk PRIVATE -m32 -std=c99)
 
 	if (CYGWIN)
 		# Using cygwin compiler
@@ -59,5 +59,5 @@ else()
 	endif()
 endif()
 
-set_target_properties(sdk PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(sdk PROPERTIES LINKER_LANGUAGE C)
 message(STATUS "Completed")
