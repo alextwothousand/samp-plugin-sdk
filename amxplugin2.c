@@ -56,7 +56,7 @@ void AMXAPI amx_Redirect(AMX *amx, char *from, ucell to, AMX_NATIVE *store)
 	}
 }
 
-int AMXAPI amx_GetCString(AMX *amx, cell param, char *&dest) 
+int AMXAPI amx_GetCString(AMX *amx, cell param, char *dest) 
 {
 	cell *ptr;
 	amx_GetAddr(amx, param, &ptr);
