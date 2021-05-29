@@ -39,18 +39,18 @@ elseif(UNIX)
 	message(STATUS "On unix")
 else()
 	target_compile_definitions(sdk PRIVATE -DWIN32)
-	target_compile_options(sdk PRIVATE -m32 -std=c99)
+	target_compile_options(sdk PUBLIC -m32 -std=c99)
 
 	if (CYGWIN)
 		# Using cygwin compiler
 
-		target_compile_options(sdk PUBLIC -Wno-ignored-attributes)
+		target_compile_options(sdk PUBLIC -Wl,--subsystem,windows,--kill-at -Wno-ignored-attributes)
 		message(STATUS "Using cygwin")
 	elseif(MINGW)
 		# Using mingw
 		# Some really stupid but necessary workaround
 
-		target_compile_options(sdk PUBLIC -Wno-attributes -include stddef.h)
+		target_compile_options(sdk PUBLIC -Wl,--subsystem,windows,--kill-at -Wno-attributes -include stddef.h)
 		message(STATUS "Using mingw")
 	else()
 		# Some unsupported platform
