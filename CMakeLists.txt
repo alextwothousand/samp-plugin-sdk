@@ -34,7 +34,7 @@ if (WIN32 AND MSVC)
 	message(STATUS "On windows with msvc")
 elseif(UNIX)
 	target_compile_definitions(sdk PUBLIC -DLINUX)
-	target_compile_options(sdk PRIVATE -m32 -std=c++11)
+	target_compile_options(sdk PRIVATE -m32 -std=c++11 -Wno-attributes -Wno-ignored-attributes)
 	
 	message(STATUS "On unix")
 else()
