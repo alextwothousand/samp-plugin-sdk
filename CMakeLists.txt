@@ -30,23 +30,8 @@ if(HAVE_STDINT_H)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-	set_property(TARGET ${name} APPEND_STRING PROPERTY COMPILE_FLAGS " -m32")
-	set_property(TARGET ${name} APPEND_STRING PROPERTY LINK_FLAGS    " -m32")
-endif()
-
-if(CMAKE_COMPILER_IS_GNUCXX)
-	set_property(TARGET ${name} APPEND_STRING PROPERTY
-		 COMPILE_FLAGS " -Wno-attributes")
-endif()
-
-if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-	set_property(TARGET ${name} APPEND_STRING PROPERTY
-		 COMPILE_FLAGS " -Wno-ignored-attributes")
-endif()
-
-if(WIN32 AND CMAKE_COMPILER_IS_GNUCC)
-	set_property(TARGET ${name} APPEND_STRING PROPERTY
-		 LINK_FLAGS " -Wl,--enable-stdcall-fixup")
+	set_property(TARGET sdk APPEND_STRING PROPERTY COMPILE_FLAGS " -m32")
+	set_property(TARGET sdk APPEND_STRING PROPERTY LINK_FLAGS    " -m32")
 endif()
 
 if (WIN32 AND MSVC)
@@ -54,12 +39,12 @@ if (WIN32 AND MSVC)
 	message(STATUS "On windows with msvc")
 elseif(UNIX)
 	target_compile_definitions(sdk PUBLIC -DLINUX)
-	target_compile_options(sdk PRIVATE -m32 -std=c++11)
+	target_compile_options(sdk PRIVATE -m32 -std=c++11 -Wno-attributes -Wno-ignored-attributes)
 	
 	message(STATUS "On unix")
 else()
 	target_compile_definitions(sdk PRIVATE -DWIN32)
-	target_compile_options(sdk PRIVATE -m32 -std=c++11)
+	target_compile_options(sdk PRIVATE -m32 -std=c++11 -Wl,--enable-stdcall-fixup)
 
 	if (CYGWIN)
 		# Using cygwin compiler
