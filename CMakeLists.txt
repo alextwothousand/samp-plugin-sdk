@@ -5,6 +5,7 @@ include(CheckIncludeFile)
 
 set(CMAKE_CXX_STANDARD 11)
 set(SAMP_SDK_ROOT ${PROJECT_SOURCE_DIR})
+set(SAMPSDK_DIR ${PROJECT_SOURCE_DIR})
 
 add_library(sdk STATIC ${SAMP_SDK_ROOT}/amxplugin.cpp ${SAMP_SDK_ROOT}/amxplugin2.cpp ${SAMP_SDK_ROOT}/amx/getch.c)
 target_include_directories(sdk PUBLIC ${SAMP_SDK_ROOT} ${SAMP_SDK_ROOT}/amx)
